@@ -56,6 +56,24 @@ ssh-keygen
 
 Note that these files are different to the one you already have to login in your virtual machine.
 
+## 3. Fix hostname error
+
+When a user is executing a command with `sudo` the following message appears:
+
+```
+sudo: unable to resolve host ip-10-20-5-22
+```
+
+To fix it, edit `sudo vi /etc/hosts` and after the line containing `127.0.0.1 localhost` add:
+
+```
+127.0.0.1 localhost
+10.20.5.22 ip-10-20-5-22
+```
+Because the second line specifies the ip address used for `eth0` port locally in the Virtual environment
+
+Save it, and now it is fixed.
+
 
 
 [1]: http://52.36.132.142/
