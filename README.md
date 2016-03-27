@@ -90,7 +90,7 @@ adduser grader
 Create file `/etc/sudoers.d/grader` with the following content:
 
 ```
-grader ALL=(ALL) NOPASSWD:ALL
+grader ALL=(ALL) ALL
 ```
 
 * Now you can login as user `grader` with:
@@ -135,6 +135,12 @@ PasswordAuthentication no
 # What ports, IPs and protocols we listen for
 Port 2200
 ```
+* Change the option `PermitRootLogin` to no, to disable root remote login
+
+```
+PermitRootLogin no
+```
+
 
 * Restart the `SSH` service to apply changes
 
