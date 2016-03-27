@@ -98,6 +98,54 @@ grader ALL=(ALL) NOPASSWD:ALL
 ```
 su grader
 ```
+## Install public key to login as `grader` user
+
+
+* As `grader` user create file `authorized_keys`
+
+```
+mkdir /home/grader/.ssh/
+touch /home/grader/.ssh/authorized_keys
+```
+
+* On `authorized_keys` file, paste the content of the `grader_key.rsa.pub` key created before (view section "How to create ssh pair key"), and change the permissions with:
+
+```
+chmod 700 /home/grader/.ssh/
+chmod 644 /home/grader/.ssh/authorized_keys
+```
+
+* Force key based authentication editing the file 
+
+```
+sudo vi /etc/ssh/sshd_config
+``` 
+
+* Set the option `PasswordAuthentication` to no
+
+```
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication no
+```
+
+* Change the `SSH` port to 2200
+
+```
+# What ports, IPs and protocols we listen for
+Port 2200
+```
+
+* Restart the `SSH` service to apply changes
+
+```
+sudo service ssh restart
+```
+
+* Now login directly with `grader` user using:
+
+```
+ssh -i ~/.ssh/grader_key.rsa  grader@52.36.132.142 -p 2200
+```
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
