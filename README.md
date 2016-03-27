@@ -309,6 +309,132 @@ It will prompt for a password,  take note of the one used to update app in futur
 sudo -u catalog createdb item_catalog
 ```
 
+## 11. Install project Item-Catalog
+
+### Create folder for project
+
+```
+sudo mkdir /project/
+sudo chown catalog:catalog -R /project/
+```
+
+
+### Configure Apache to handle requests using de WSGI module
+
+```
+sudo vi /etc/apache2/sites-enabled/000-default.conf
+```
+
+Add the following lines before the `</VirtualHost>` tag
+
+```
+        WSGIScriptAlias / /project/myapp.wsgi
+        <Directory "/project/">
+                Options Indexes MultiViews FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+
+        Alias "/static/" "/project/app/static/"
+        <Directory "/project/app/static/">
+        		  Options -Indexes
+                Order allow,deny
+		         Allow from all
+        </Directory>
+</VirtualHost>
+```
+
+* Restart Apache
+
+```
+sudo apache2ctl restart
+```
+
+### Clone project
+
+* Login as user `catalog`
+
+```
+su catalog
+```
+
+
+* Inside `project` folder clone project 4 from GitHub
+
+```
+git clone https://github.com/aristoteles-nunez/Item-Catalog.git
+```
+
+### Install requirements
+
+* Inside `Item-catalog` folder, and as `grader` user, Install requirements
+
+```
+sudo pip3 install -r requirements.txt
+```
+
+* Inside `Item-catalog` folder, and as `catalog` user populate with sample data
+
+```
+python3 insert_sample_data.py
+```
+### Make application changes
+Some changes are required to make the application works.
+
+* Create `__init__.py` file to identify the app as a module
+
+```
+touch /project/Item-Catalog/__init__.py
+```
+
+* Inside `project` folder, create the file `myapp.wsgi` with the following content
+
+```
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/project/")
+sys.path.insert(0,"/project/app/")
+
+from app import app as application
+application.secret_key = 'super_secret_key_for_catalog_item'
+```
+
+* Rename `Item-catalog` folder as `app`
+
+```
+mv Item-Catalog/ app
+```
+
+* Modify files `app/__init__.py` and `app/models.py` with the right postgresql role name and password.
+
+```
+postgresql+psycopg2://catalog:<password>g@localhost/item_catalog
+```
+
+* Modify files `app/app.py` with the full system path for `client_secret.json`, and the full path for static folder.
+
+```
+client_secret.json => /project/app/client_secret.json
+static/ => /project/app/static
+```
+
+* Modify files `client_secret.json` with the correct content (updating ip in allowed origins).
+
+
+* As `grader` user add `catalog` user  user to `www-data` group and change folder permissions to `/project`
+
+```
+sudo usermod -a -G  www-data catalog
+sudo chgrp -R www-data /project/
+sudo chmod -R 775 /project/
+```
+
+Restart Apache 2
+
+Go to [http://52.36.132.142/][1] and enjoy it :) 
+
+
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
