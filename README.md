@@ -227,6 +227,66 @@ sudo pip3 install psycopg2
 sudo timedatectl set-timezone UTC
 ```
 
+## 9. Configure Firewall with Uncomplicated Firewall (`ufw`)
+
+*  Configurate incoming requests
+
+```
+sudo ufw default deny incoming
+```
+
+* Configurate outgoing requests
+
+```
+sudo ufw default allow outgoing
+```
+
+* At this point we can see that the `ufw` is inactive with
+
+```
+sudo ufw status
+```
+
+* Open port for SSH (2200)
+
+```
+sudo ufw allow 2200/tcp
+```
+
+* Open port for HTTP (80)
+
+```
+sudo ufw allow www
+```
+
+* Open port for NTP (123)
+
+```
+sudo ufw allow 123/tcp
+```
+
+* Enable `ufw` with:
+
+```
+sudo ufw enable
+```
+
+* Now we can see that the `ufw` status is active with
+
+```
+grader@ip-10-20-5-22:~$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+2200/tcp                   ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+123/tcp                    ALLOW       Anywhere
+2200/tcp (v6)              ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+123/tcp (v6)               ALLOW       Anywhere (v6)
+```
+
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
