@@ -33,8 +33,28 @@ The main goal for this project is deploy a web application made with `Flask` usi
 ## 1. Amazon EC2 Instance creation
 This `README` does not cover the creation of Virtual machines but you can follow the steps to create one in: [EC2 Launch instance][3]
 
-The following steps are based in a `Ubuntu 14.04` Virtual Machine.
+The following steps are based in a `Ubuntu 14.04` Virtual Machine and you must have the `SSH` key to access it.
 
+The SSH access key usually ends with `.pem` or `.rsa`, in this case we will call it `root_key.rsa` and for convenience store it inside `~/.ssh/` folder with `600` file permissions.
+
+## 2. Create ssh pair key
+We need a ssh pair key to use in the next steps for `grader` user, so we need to generate one pair with the following instructions: 
+
+* On your local machine (Unix based) execute the command:
+
+```
+ssh-keygen
+```
+
+* It will prompt for a path to store the key, in this case we can use: 
+
+```
+~/.ssh/grader_key.rsa
+```
+
+* It generates two files `grader_key.rsa` and `grader_key.rsa.pub`
+
+Note that these files are different to the one you already have to login in your virtual machine.
 
 
 
