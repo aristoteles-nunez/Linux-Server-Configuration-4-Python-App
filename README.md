@@ -64,7 +64,7 @@ When a user is executing a command with `sudo` the following message appears:
 sudo: unable to resolve host ip-10-20-5-22
 ```
 
-To fix it, edit `sudo vi /etc/hosts` and after the line containing `127.0.0.1 localhost` add:
+To fix it, as `root`, edit `vi /etc/hosts` and after the line containing `127.0.0.1 localhost` add:
 
 ```
 127.0.0.1 localhost
@@ -75,6 +75,29 @@ Because the second line specifies the ip address used for `eth0` port locally in
 Save it, and now it is fixed.
 
 
+## 4. Create `grader` user
+
+The `grader` user will be in the `sudoers` group to perform priviligies operations.
+
+* As `root` create user
+
+```
+adduser grader
+```
+
+* Add `grader` user to the sudoers group
+
+Create file `/etc/sudoers.d/grader` with the following content:
+
+```
+grader ALL=(ALL) NOPASSWD:ALL
+```
+
+* Now you can login as user `grader` with:
+
+```
+su grader
+```
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
