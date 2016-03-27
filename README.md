@@ -22,13 +22,22 @@ The main goal for this project is deploy a web application made with `Flask` usi
 		* `HTTP`: `80` 
 		* `NTP`: `123` 
 * **Software**.
+	* Ubuntu 14.04
 	* [Item-Catalog][2] python3 web application.
 	* `Python 3.X` along with `pip3`.
 	* `PostgreSQL 9.0`.
 	* `Psycopg` adapter.
+
+# Instructions
+
+## 1. Amazon EC2 Instance creation
+This `README` does not cover the creation of Virtual machines but you can follow the steps to create one in: [EC2 Launch instance][3]
+
+The following steps are based in a `Ubuntu 14.04` Virtual Machine.
 
 
 
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
+[3]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html#ec2-launch-instance_linux
