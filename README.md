@@ -221,6 +221,12 @@ sudo apt-get install postgresql-9.4
 sudo pip3 install psycopg2
 ```
 
+## 8. Configure local timezone to UTC
+
+```
+sudo timedatectl set-timezone UTC
+```
+
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
