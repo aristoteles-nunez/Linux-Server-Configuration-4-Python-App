@@ -98,7 +98,8 @@ grader ALL=(ALL) NOPASSWD:ALL
 ```
 su grader
 ```
-## Install public key to login as `grader` user
+
+## 5. Install public key to login as `grader` user
 
 
 * As `grader` user create file `authorized_keys`
@@ -146,6 +147,80 @@ sudo service ssh restart
 ```
 ssh -i ~/.ssh/grader_key.rsa  grader@52.36.132.142 -p 2200
 ```
+From here we allways be using `grader` user to login.
+
+## 6. Update software
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+* Restart to apply changes
+
+```
+sudo shutdown -r now
+```
+
+## 7. Install software 
+
+### Basic software
+
+```
+sudo apt-get install finger
+sudo apt-get install build-essential
+sudo apt-get install python3-pip python-dev
+```
+### Install Apache HTTP
+
+```
+sudo apt-get install apache2
+```
+
+### Install application handler `mod_wsgi` for python3
+
+```
+sudo apt-get install apache2-dev
+sudo apt-get install libapache2-mod-wsgi-py3
+sudo service apache2 restart
+```
+
+### Install Git 
+
+```
+sudo apt-get install git
+```
+
+
+### Install PostgreSQL
+
+* Create the file:
+
+```
+sudo vi /etc/apt/sources.list.d/pgdg.list
+```
+
+* Add the following line:
+
+```
+deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+```
+
+* Execute:
+
+```
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+  sudo apt-key add -
+sudo apt-get update
+```
+
+* Install PostgreSQL 9.4 and Psycopg2 plugin
+
+```
+sudo apt-get install postgresql-9.4
+sudo pip3 install psycopg2
+```
+
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
