@@ -287,6 +287,28 @@ To                         Action      From
 123/tcp (v6)               ALLOW       Anywhere (v6)
 ```
 
+## 10. Create user with limited permissions for Database
+
+* Create user `catalog`
+
+```
+sudo adduser catalog
+```
+
+* Create role `catalog` on database
+
+```
+sudo -u postgres createuser -dRSP catalog
+```
+
+It will prompt for a password,  take note of the one used to update app in future steps
+
+* Create database `item_catalog`
+
+```
+sudo -u catalog createdb item_catalog
+```
+
 
 [1]: http://52.36.132.142/
 [2]: https://github.com/aristoteles-nunez/Item-Catalog/
